@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editron - Conversor de Maiúsculas e Minúsculas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .btn {
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .suggestion-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .suggestion-item:hover {
+            background-color: #f3f4f6;
+        }
+        .loading {
+            display: none;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex flex-col">
+    
+    <!-- Cabeçalho -->
+    <header class="glass-effect text-white py-4 px-6">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-magic text-2xl"></i>
+                <h1 class="text-2xl font-bold">Editron</h1>
+            </div>
+            <div class="text-sm opacity-80">
+                <i class="fas fa-shield-alt mr-1"></i> Processamento 100% offline
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow flex items-center justify-center py-8 px-4">
+        <div class="max-w-6xl w-full">
+            <!-- Card Principal -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <!-- Cabeçalho do Card -->
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+                    <h2 class="text-2xl font-bold mb-2 flex items-center">
+                        <i class="fas fa-text-height mr-3"></i> Conversor de Texto
+                    </h2>
+                    <p class="opacity-90">Converta facilmente entre maiúsculas, minúsculas e capitalize frases</p>
+                </div>
+                
+                <!-- Corpo do Card -->
+                <div class="p-6 md:p-8">
+                    <!-- Área de Entrada -->
+                    <div class="mb-6">
+                        <label for="inputText" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-keyboard mr-2 text-blue-500"></i> Texto de Entrada:
+                        </label>
+                        <textarea 
+                            id="inputText" 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            placeholder="Digite ou cole seu texto aqui...">eu nao sei o que fazer. temos que ir lá amanhã cedo. vamos nos encontrar as 14 horas. é importante para mim.</textarea>
+                    </div>
+                    
+                    <!-- Botões de Ação -->
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6">
+                        <button 
+                            id="uppercaseBtn" 
+                            class="btn bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center justify-center">
+                            <i class="fas fa-text-height mr-2"></i> MAIÚSCULAS
+                        </button>
+                        
+                        <button 
+                            id="lowercaseBtn" 
+                            class="btn bg-blue-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-600 flex items-center justify-center">
+                            <i class="fas fa-text-height mr-2 transform rotate-180"></i> minúsculas
+                        </button>
+                        
+                        <button 
+                            id="capitalizeBtn" 
+                            class="btn bg-purple-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-purple-700 flex items-center justify-center">
+                            <i class="fas fa-font mr-2"></i> Primeira Letra
+                        </button>
+                        
+                        <button 
+                            id="apiCorrectBtn" 
+                            class="btn bg-green-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-green-700 flex items-center justify-center">
+                            <i class="fas fa-spell-check mr-2"></i> Correção Ortográfica
+                        </button>
+                    </div>
+
+                    <!-- Loading -->
+                    <div id="loading" class="loading mb-4 text-center">
+                        <div class="spinner"></div>
+                        <p class="text-gray-600 mt-2">Analisando texto com API...</p>
+                    </div>
+                    
+                    <!-- Sugestões de Correção -->
+                    <div id="suggestionsContainer" class="mb-6 hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-lightbulb mr-2 text-yellow-500"></i> Sugestões de Correção:
+                        </label>
+                        <div id="suggestionsList" class="border border-gray-300 rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
+                            <!-- Sugestões serão inseridas aqui dinamicamente -->
+                        </div>
+                    </div>
+                    
+                    <!-- Área de Saída -->
+                    <div>
+                        <label for="outputText" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-file-alt mr-2 text-green-500"></i> Texto Corrigido:
+                        </label>
+                        <textarea 
+                            id="outputText" 
+                            readonly
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                            placeholder="O texto corrigido aparecerá aqui..."></textarea>
+                    </div>
+                    
+                    <!-- Botões Auxiliares -->
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <button 
+                            id="copyBtn" 
+                            class="btn bg-gray-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-700 flex items-center">
+                            <i class="far fa-copy mr-2"></i> Copiar Resultado
+                        </button>
+                        
+                        <button 
+                            id="clearBtn" 
+                            class="btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 flex items-center">
+                            <i class="fas fa-eraser mr-2"></i> Limpar Tudo
+                        </button>
+
+                        <button 
+                            id="applyAllBtn" 
+                            class="btn bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 flex items-center hidden">
+                            <i class="fas fa-check-double mr-2"></i> Aplicar Todas
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Informações -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Como Usar -->
+                <div class="glass-effect text-white p-6 rounded-2xl">
+                    <h3 class="font-semibold text-lg mb-3 flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i> Como Usar
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-check mt-1 mr-2 text-green-300"></i>
+                            <span>Digite ou cole o texto na área de entrada</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check mt-1 mr-2 text-green-300"></i>
+                            <span>Clique em um dos botões de conversão</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check mt-1 mr-2 text-green-300"></i>
+                            <span>Copie o resultado usando o botão "Copiar"</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Recursos -->
+                <div class="glass-effect text-white p-6 rounded-2xl">
+                    <h3 class="font-semibold text-lg mb-3 flex items-center">
+                        <i class="fas fa-star mr-2"></i> Recursos
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-bolt mt-1 mr-2 text-yellow-300"></i>
+                            <span>Processamento instantâneo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-shield-alt mt-1 mr-2 text-blue-300"></i>
+                            <span>Funciona totalmente offline</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-mobile-alt mt-1 mr-2 text-purple-300"></i>
+                            <span>Design responsivo</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="glass-effect text-white py-4 px-6 mt-8">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-sm opacity-80">
+                <i class="fas fa-code mr-1"></i> Desenvolvido com 
+                <i class="fas fa-heart mx-1 text-red-400"></i> 
+                para simplificar seu trabalho
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputText = document.getElementById('inputText');
+            const outputText = document.getElementById('outputText');
+            const uppercaseBtn = document.getElementById('uppercaseBtn');
+            const lowercaseBtn = document.getElementById('lowercaseBtn');
+            const capitalizeBtn = document.getElementById('capitalizeBtn');
+            const apiCorrectBtn = document.getElementById('apiCorrectBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const applyAllBtn = document.getElementById('applyAllBtn');
+            const suggestionsContainer = document.getElementById('suggestionsContainer');
+            const suggestionsList = document.getElementById('suggestionsList');
+            const loading = document.getElementById('loading');
+            
+            let currentSuggestions = [];
+
+            // APIs gratuitas para correção
+            const apis = {
+                // LanguageTool API (gratuita)
+                languageTool: async (text) => {
+                    try {
+                        const response = await fetch('https://api.languagetool.org/v2/check', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `text=${encodeURIComponent(text)}&language=pt-BR&enabledOnly=false`
+                        });
+                        
+                        if (!response.ok) throw new Error('Erro na API');
+                        return await response.json();
+                    } catch (error) {
+                        console.error('Erro LanguageTool:', error);
+                        throw error;
+                    }
+                }
+            };
+
+            // Função para correção com API
+            async function correctWithAPI() {
+                const text = inputText.value.trim();
+                if (!text) {
+                    alert('Por favor, digite algum texto para corrigir.');
+                    return;
+                }
+
+                loading.style.display = 'block';
+                suggestionsContainer.classList.add('hidden');
+                outputText.value = ''; // Limpar área de saída
+
+                try {
+                    const results = await apis.languageTool(text);
+                    processAPIResults(results, text);
+                } catch (error) {
+                    console.error('Erro na correção:', error);
+                    alert('Erro ao conectar com a API. Tente novamente mais tarde.');
+                } finally {
+                    loading.style.display = 'none';
+                }
+            }
+
+            // Processar resultados da API
+            function processAPIResults(results, originalText) {
+                let correctedText = originalText;
+                currentSuggestions = [];
+
+                // Ordenar correções pelo offset (do final para o início) para evitar problemas de índices
+                const sortedMatches = [...results.matches].sort((a, b) => b.offset - a.offset);
+
+                sortedMatches.forEach((match) => {
+                    if (match.replacements && match.replacements.length > 0) {
+                        const bestReplacement = match.replacements[0].value;
+                        const suggestion = {
+                            original: originalText.substring(match.offset, match.offset + match.length),
+                            correction: bestReplacement,
+                            description: match.message,
+                            context: match.context,
+                            offset: match.offset,
+                            length: match.length
+                        };
+                        currentSuggestions.push(suggestion);
+                        
+                        // Aplicar a correção diretamente no texto
+                        correctedText = correctedText.substring(0, match.offset) + 
+                                      bestReplacement + 
+                                      correctedText.substring(match.offset + match.length);
+                    }
+                });
+
+                // O TEXTO CORRIGIDO VAI PARA A ÁREA DE SAÍDA
+                outputText.value = correctedText;
+                
+                if (currentSuggestions.length > 0) {
+                    displaySuggestions(currentSuggestions);
+                    applyAllBtn.classList.remove('hidden');
+                } else {
+                    suggestionsContainer.classList.add('hidden');
+                    alert('Texto analisado! Nenhuma correção necessária.');
+                }
+            }
+
+            // Botão de correção com API
+            apiCorrectBtn.addEventListener('click', correctWithAPI);
+
+            // Aplicar todas as correções
+            applyAllBtn.addEventListener('click', function() {
+                let text = inputText.value;
+                
+                currentSuggestions.forEach(suggestion => {
+                    if (suggestion.offset !== undefined) {
+                        text = text.substring(0, suggestion.offset) + 
+                              suggestion.correction + 
+                              text.substring(suggestion.offset + suggestion.length);
+                    } else {
+                        const regex = new RegExp(`\\b${suggestion.original}\\b`, 'gi');
+                        text = text.replace(regex, suggestion.correction);
+                    }
+                });
+                
+                inputText.value = text;
+                outputText.value = text;
+                suggestionsContainer.classList.add('hidden');
+                applyAllBtn.classList.add('hidden');
+                alert('Todas as correções aplicadas!');
+            });
+
+            // Display de sugestões
+            function displaySuggestions(suggestions) {
+                suggestionsList.innerHTML = '';
+                
+                suggestions.forEach((suggestion, index) => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item p-3 border-b border-gray-200 last:border-b-0';
+                    suggestionItem.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <div class="flex items-center mb-1">
+                                    <span class="font-medium text-red-600 bg-red-50 px-2 py-1 rounded">${suggestion.original}</span>
+                                    <span class="mx-3 text-gray-400">→</span>
+                                    <span class="font-medium text-green-600 bg-green-50 px-2 py-1 rounded">${suggestion.correction}</span>
+                                </div>
+                                <div class="text-sm text-gray-600">${suggestion.description}</div>
+                                ${suggestion.context ? `<div class="text-xs text-gray-500 mt-1">Contexto: "${suggestion.context.text}"</div>` : ''}
+                            </div>
+                            <button class="text-blue-500 hover:text-blue-700 ml-4 apply-suggestion" data-index="${index}">
+                                <i class="fas fa-check-circle text-lg"></i>
+                            </button>
+                        </div>
+                    `;
+                    suggestionsList.appendChild(suggestionItem);
+                });
+                
+                suggestionsContainer.classList.remove('hidden');
+                
+                document.querySelectorAll('.apply-suggestion').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        applySuggestion(suggestions[index]);
+                    });
+                });
+            }
+
+            // Aplicar sugestão individual
+            function applySuggestion(suggestion) {
+                let text = inputText.value;
+                
+                if (suggestion.offset !== undefined) {
+                    text = text.substring(0, suggestion.offset) + 
+                          suggestion.correction + 
+                          text.substring(suggestion.offset + suggestion.length);
+                } else {
+                    const regex = new RegExp(`\\b${suggestion.original}\\b`, 'gi');
+                    text = text.replace(regex, suggestion.correction);
+                }
+                
+                inputText.value = text;
+                outputText.value = text;
+                
+                // Remove a sugestão aplicada da lista
+                const index = currentSuggestions.findIndex(s => 
+                    s.original === suggestion.original && s.correction === suggestion.correction);
+                if (index > -1) {
+                    currentSuggestions.splice(index, 1);
+                }
+                
+                if (currentSuggestions.length === 0) {
+                    suggestionsContainer.classList.add('hidden');
+                    applyAllBtn.classList.add('hidden');
+                } else {
+                    displaySuggestions(currentSuggestions);
+                }
+            }
+
+            // Função para capitalizar cada palavra
+            function capitalizeWords(text) {
+                return text.replace(/\b\w/g, function(letra) {
+                    return letra.toUpperCase();
+                });
+            }
+
+            // Funções existentes
+            uppercaseBtn.addEventListener('click', function() {
+                outputText.value = inputText.value.toUpperCase();
+                suggestionsContainer.classList.add('hidden');
+                applyAllBtn.classList.add('hidden');
+            });
+            
+            lowercaseBtn.addEventListener('click', function() {
+                outputText.value = inputText.value.toLowerCase();
+                suggestionsContainer.classList.add('hidden');
+                applyAllBtn.classList.add('hidden');
+            });
+            
+            // Botão de capitalização
+            capitalizeBtn.addEventListener('click', function() {
+                let text = inputText.value;
+                // Capitalizar cada palavra
+                text = capitalizeWords(text);
+                outputText.value = text;
+                suggestionsContainer.classList.add('hidden');
+                applyAllBtn.classList.add('hidden');
+            });
+            
+            copyBtn.addEventListener('click', function() {
+                if (outputText.value) {
+                    outputText.select();
+                    navigator.clipboard.writeText(outputText.value);
+                    
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Copiado!';
+                    copyBtn.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                    copyBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                        copyBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                        copyBtn.classList.add('bg-gray-600', 'hover:bg-gray-700');
+                    }, 2000);
+                }
+            });
+            
+            clearBtn.addEventListener('click', function() {
+                inputText.value = '';
+                outputText.value = '';
+                suggestionsContainer.classList.add('hidden');
+                applyAllBtn.classList.add('hidden');
+                inputText.focus();
+            });
+        });
+    </script>
+</body>
+</html>

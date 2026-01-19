@@ -1,0 +1,106 @@
+<!DOCTYPE html> <!-- Define que o documento é HTML5 -->
+<html lang="pt-br"> <!-- Tag raiz do HTML, idioma definido como português do Brasil -->
+  <head> <!-- Cabeçalho do documento, onde ficam meta-informações e links de CSS/JS -->
+    <meta charset="UTF-8" /> <!-- Define a codificação de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Responsividade para dispositivos móveis -->
+    <title>Grouping tags</title> <!-- Título do site, aparece na aba do navegador -->
+    <style> /*Estilo CSS interno*/
+      body { 
+        font-family: sans-serif; /* Fonte do site */
+        background-color: dimgray; /* Cor de fundo */
+        margin: 0px; /* Remove margens padrão do navegador */
+      }
+      h1{
+        box-shadow:  rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; ;
+      }
+      nav{
+        background-color: rgb(65, 65, 65); /* Cor de fundo da barra de navegação */
+        padding: 3px; /* Espaçamento interno */
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
+
+      nav > a{
+        text-decoration: none; /* Remove sublinhado dos links */
+        color: #fff; /* Cor do texto dos links */
+        margin-right: 30px; /* Espaçamento entre links */
+      
+      }
+      nav > a:hover{
+        text-decoration: underline; /* Sublinhado quando passa o mouse */
+      }
+      header { 
+        background-color: #fff; /* Cor de fundo do cabeçalho */
+        padding: 10px; /* Espaçamento interno */
+        margin: 10px; /* Espaçamento externo */
+      }
+      main{
+        background-color: #fff; /* Cor de fundo do conteúdo principal */
+        padding: 10px;
+        margin: 10px;
+        border-radius: 10px 40px;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
+      article{
+        background-color: lightgray; /* Cor de fundo do artigo */
+        padding: 5px;
+      }
+      article > aside{
+        background-color: rgb(112, 112, 112); /* Cor de fundo do conteúdo lateral do artigo */
+      }
+      footer{
+        background-color: #000; /* Cor de fundo do rodapé */
+        color: #fff; /* Cor do texto */
+        text-align: center; /* Centraliza o texto */
+        padding: 5px;
+        margin: 0px;
+      }
+
+      footer > p{
+        margin: 0px;
+      }
+      #bola{
+        height:100px;
+        width: 100px;
+        margin: 10px;
+        background-color: white;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body> <!-- Corpo do site, onde vai todo o conteúdo visível -->
+    <header> <!-- Cabeçalho do site, geralmente contém logo e menu -->
+      <h1>Meu site</h1> <!-- Título principal do site -->
+      <nav> <!-- Menu de navegação -->
+        <a href="#">HOME</a> <!-- Link de navegação -->
+        <a href="#">CONTATO</a>
+        <a href="#">POLITICA DE PRIVACIDADE</a>
+        <a href="#">AJUDA</a>
+        <a href="#">RIAS</a>
+      </nav>
+    </header>
+    <main> <!-- Conteúdo principal da página -->
+      <section id="assunto"> <!-- Seção do site, usada para organizar conteúdo -->
+        <p>Esporte, politica e desenvolvimento</p> <!-- Parágrafo de texto -->
+      </section>
+      <section id="notícias"> <!-- Seção para notícias -->
+        <article> <!-- Artigo individual, normalmente usado para posts ou notícias -->
+          <h2>Notícia sobre o bostil</h2> <!-- Título do artigo -->
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+            dolores atque nesciunt unde porro corrupti aliquid consequuntur
+            fugiat. Quae, amet expedita. Qui error dolores vero sapiente
+            distinctio fuga id totam?
+          </p>
+          <aside> <!-- Conteúdo complementar ou lateral ao artigo -->
+            <p>artigo de fulano de tal</p>
+          </aside>
+        </article>
+        <article> <!-- Outro artigo, vazio por enquanto --> </article>
+      </section>
+    </main>
+    <footer> <!-- Rodapé do site -->
+      <p>Desenvolvido por rafael_dev</p> <!-- Informação de copyright ou desenvolvedor -->
+    </footer>
+    <div id="bola"></div>
+  </body>
+</html>

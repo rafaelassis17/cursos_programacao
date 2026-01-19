@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brasil Curriculos - Crie seu currículo profissional gratuito</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e configurações base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #014140; /* Verde escuro da logo */
+            --primary-dark: #013030; /* Tom mais escuro do verde */
+            --primary-light: #0F5A40; /* Verde médio da logo */
+            --secondary: #f8f9fa;
+            --accent: #DFC43F; /* Dourado da logo */
+            --accent-dark: #C9AD2A; /* Tom mais escuro do dourado */
+            --text: #333333;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --gray: #939599; /* Cinza da logo */
+            --success: #28a745;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px; /* Tamanho ajustado para a logo */
+            width: auto;
+        }
+        
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--text);
+        }
+        
+        .btn-accent:hover {
+            background-color: var(--accent-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        /* Features */
+        .features {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.8rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 10px auto 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--primary-light);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* How it works */
+        .how-it-works {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Templates */
+        .templates {
+            padding: 60px 0;
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .template-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .template-preview {
+            height: 200px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-preview:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-light) 0%, transparent 100%);
+            opacity: 0.1;
+        }
+        
+        .template-info {
+            padding: 15px;
+        }
+        
+        .template-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: var(--shadow);
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .logo {
+                height: 35px;
+            }
+        }
+        
+        /* Animações suaves */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfbvQO7cRSzWXXYMjO8kAvSalJRgyMVFheAL5aNOjqzGOxJzCuQkxXZLVIAn_6mxICrJFlMdq_HSqV-CKmIFCnWz6o7tfg-q3l652GfU3qNfQLpIGyW-HTpWcWIoi0UDYcDX6v6skbA7VbOlGl5ORizITNtrgjpoiOCvJeYgD-vO-R_AvHrkb77spIwXvd/s320/logobrasilcurr%C3%ADculos.png" alt="Brasil Curriculos" class="logo">
+                </div>
+                <button class="nav-toggle">☰</button>
+                <nav>
+                    <ul>
+                        <li><a href="#">Início</a></li>
+                        <li><a href="#">Modelos</a></li>
+                        <li><a href="#">Dicas</a></li>
+                        <li><a href="#">Exemplos</a></li>
+                        <li><a href="#" class="btn">Criar Currículo</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <div class="container">
+            <h1>Crie seu currículo profissional em minutos, gratuitamente</h1>
+            <p>Modelos profissionais, dicas especializadas e ferramentas fáceis para você se destacar no mercado de trabalho</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-accent">Criar Meu Currículo</a>
+                <a href="#" class="btn" style="background-color: transparent; border: 1px solid var(--white);">Ver Modelos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features fade-in">
+        <div class="container">
+            <h2 class="section-title">Por que usar o BrasilCurriculos?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Rápido e Fácil</h3>
+                    <p>Crie seu currículo em poucos minutos com nosso construtor intuitivo</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Modelos Profissionais</h3>
+                    <p>Escolha entre diversos modelos otimizados para ATS (sistemas de triagem)</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Completamente Gratuito</h3>
+                    <p>Todos os recursos disponíveis sem custos ocultos ou limitações</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Otimizado para Mobile</h3>
+                    <p>Crie e edite seu currículo de qualquer dispositivo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works fade-in">
+        <div class="container">
+            <h2 class="section-title">Como funciona</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Escolha um modelo</h3>
+                        <p>Selecione entre nossos templates profissionais e modernos</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Preencha suas informações</h3>
+                        <p>Adicione suas experiências, formação e habilidades de forma organizada</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Personalize e finalize</h3>
+                        <p>Ajuste cores, fontes e layout conforme sua preferência</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Baixe e compartilhe</h3>
+                        <p>Faça o download em PDF ou compartilhe diretamente com empregadores</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section class="templates fade-in">
+        <div class="container">
+            <h2 class="section-title">Modelos de Currículo</h2>
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-preview">Prévia do Modelo Clássico</div>
+                    <div class="template-info">
+                        <h3>Clássico</h3>
+                        <p>Design tradicional e profissional</p>
+                        <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Usar Este</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-preview">Prévia do Modelo Moderno</div>
+                    <div class="template-info">
+                        <h3>Moderno</h3>
+                        <p>Design contemporâneo e criativo</p>
+                        <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Usar Este</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-preview">Prévia do Modelo Executivo</div>
+                    <div class="template-info">
+                        <h3>Executivo</h3>
+                        <p>Elegante e sofisticado para cargos de liderança</p>
+                        <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Usar Este</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta fade-in">
+        <div class="container">
+            <h2>Pronto para criar seu currículo profissional?</h2>
+            <p>Junte-se a milhares de brasileiros que já conseguiram emprego com nossos currículos</p>
+            <a href="#" class="btn btn-accent">Começar Agora - É Gratuito</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BrasilCurriculos</h3>
+                    <p>A maneira mais fácil de criar um currículo profissional e conseguir o emprego dos sonhos.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#">Início</a></li>
+                        <li><a href="#">Modelos</a></li>
+                        <li><a href="#">Dicas</a></li>
+                        <li><a href="#">Exemplos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Como fazer um currículo</a></li>
+                        <li><a href="#">Modelos por área</a></li>
+                        <li><a href="#">Cartas de apresentação</a></li>
+                        <li><a href="#">Dicas de entrevista</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BrasilCurriculos. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile toggle
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link (mobile)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('nav').classList.remove('active');
+            });
+        });
+        
+        // Adicionar animação de fade-in aos elementos conforme rolagem
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos para animação
+        document.querySelectorAll('.features, .how-it-works, .templates, .cta').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
