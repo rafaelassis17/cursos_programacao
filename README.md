@@ -12,7 +12,7 @@ Estou aprendendo a criar sites!
 - [Desafio 7](desafios/desafio_7/index.html)
 - [Desafio 8](desafios/desafio_8/index.html)
 - [Desafio 9](desafios/desafio_9/index.html)
-- [Desafio 10](desafios/desafio_10/index.html)
+- [Desafio 10](desafios/desafio_10/android.html)
 
 ## 📚 Exercícios
 
