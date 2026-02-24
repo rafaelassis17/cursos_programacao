@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      caption {
+        font-size: 1.5em;
+        margin: 10px;
+        font-weight: bold;
+      }
+
+      table {
+        border-collapse: collapse;
+
+        position: relative;
+      }
+
+      th,
+      td {
+        border: 1px solid #000000;
+        padding: 8px;
+      }
+      #mediafinal {
+        font-weight: bold;
+        text-align: left;
+        background-color: gray;
+        color: white;
+      }
+
+      .ultimate {
+        background-color: gray;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .demonio {
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table>
+      <caption>
+        Desafio de Tabela 2
+      </caption>
+      <thead>
+        <tr>
+          <th rowspan="3" class="ultimate" style="width: 80px" scope="col">
+            Área
+          </th>
+          <th rowspan="3" class="ultimate" style="width: 90px" scope="col">
+            Disciplinas
+          </th>
+          <th colspan="2" rowspan="2" class="ultimate" scope="colgroup">
+            Notas
+          </th>
+          <th
+            rowspan="3"
+            style="width: 60px"
+            class="ultimate"
+            style="width: 50px"
+            scope="col"
+          >
+            Média
+          </th>
+        </tr>
+        <tr></tr>
+        <tr>
+          <th class="ultimate" style="width: 50px" scope="col">Nota 1</th>
+          <th class="ultimate" style="width: 50px" scope="col">Nota 2</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <th rowspan="5" scope="rowgroup">Exatas</th>
+        </tr>
+
+        <tr>
+          <td>Matemática</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+        </tr>
+        <tr>
+          <td>Física</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+        </tr>
+        <tr>
+          <td>Química</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+        </tr>
+        <tr>
+          <td>Biologia</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+        </tr>
+        <tr>
+          <th id="mediafinal" colspan="4" style="width: 60px" scope="row">
+            Média Exatas
+          </th>
+          <td class="ultimate">9.0</td>
+        </tr>
+        <tr>
+          <th rowspan="3" scope="rowgroup">Humanas</th>
+        </tr>
+
+        <tr>
+          <th>História</th>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+        </tr>
+        <tr>
+          <th>Geografia</th>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+          <td class="demonio">9.0</td>
+        </tr>
+        <tr>
+          <th id="mediafinal" colspan="4" style="width: 60px" scope="row">
+            Média Humanas
+          </th>
+          <td class="ultimate">9.0</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
