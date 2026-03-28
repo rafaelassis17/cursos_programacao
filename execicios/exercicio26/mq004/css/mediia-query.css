@@ -1,0 +1,86 @@
+@charset "UTF=8";
+
+/*Versão para todas as midias*/
+
+/* Breakpoints modernos recomendados 
+
+/* Mobile pequeno 
+@media (max-width: 480px) {}
+
+/Mobile padrão 
+@media (max-width: 768px) {}
+
+Tablet 
+@media (min-width: 769px) and (max-width: 1024px) {}
+
+Laptop 
+@media (min-width: 1025px) and (max-width: 1280px) {}
+
+ Desktop 
+@media (min-width: 1281px) and (max-width: 1536px) {}
+
+Telas grandes 
+@media (min-width: 1537px) {}
+*/
+
+@media print {
+    *{font-family: 'Courier New', Courier, monospace;}
+    body{
+        background-image: url(../../imagens/back-print.jpg);
+        
+        
+    }
+    main{
+        width: 90vw;
+        border: 2px solid black;
+    }
+    main h1{
+        text-shadow: none;
+        color: black
+    }
+    main::after{
+        content: 'liliel é uma deusa, akane tmbbb';
+        text-decoration: overline;
+    }
+img#Tablet{display: none;}
+img#impressora{display: block;}
+img#computador{display: none;}
+img#televisão{display: none;}
+}
+@media screen and (min-width:768px) and (max-width: 1024px){
+        body{
+    background-image: url(../../imagens/back-tablet.jpg);
+}
+img#celular{display: none;}
+img#Tablet{display: block;}
+img#impressora{display: none;}
+img#computador{display: none;}
+img#televisão{display: none;}
+
+}
+
+
+@media screen and (min-width: 1024px) and (max-width: 1537px){
+        body{
+    background-image: url(../../imagens/back-pc.jpg);
+
+        }
+img#celular{display: none;}
+img#Tablet{display: none;}
+img#impressora{display: none;}
+img#computador{display: block;}
+img#televisão{display: none;}
+}
+
+@media screen and (min-width:1537px) {
+    body{
+    background-image: url(../../imagens/back-tv.jpg);
+    
+    }
+    img#celular{display: none;}
+img#Tablet{display: none;}
+img#impressora{display: none;}
+img#computador{display: none;}
+img#televisão{display: block;}
+
+}
