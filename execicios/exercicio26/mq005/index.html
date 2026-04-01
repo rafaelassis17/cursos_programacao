@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media Query</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=menu" />
+<link rel="stylesheet" href="css/media-query.css">
+
+  </head>
+  <body onresize="mudouTamanho()">
+    <header>
+      <h1>Meu Site</h1>
+<span id="burger" class="material-symbols-outlined" onclick="clickMenu()">
+menu
+</span>
+      <menu id="liliel">
+        <ul>
+          <li><a href="#">Opção 1</a></li>
+          <li><a href="#">Opção 2</a></li>
+          <li><a href="#">Opção 3</a></li>
+          <li><a href="#">Opção 4</a></li>
+          <li><a href="#">Opção 5</a></li>
+        </ul>
+      </menu>
+    </header>
+
+    <main>
+      <article>
+        <h2>Testando Media Queries</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+          porro repellendus dolor consequuntur ut? Debitis saepe nobis, iste
+          molestias quasi quo cupiditate ipsam minima magnam, asperiores
+          voluptatibus ea cum incidunt. Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Cumque mollitia accusantium ipsam consectetur quo,
+          tenetur aspernatur perferendis officiis animi, numquam dolorem beatae,
+          quidem enim molestias non. Nesciunt numquam maxime quas! Lorem ipsum
+          dolor sit amet consectetur, adipisicing elit. Ad doloremque
+          architecto, recusandae autem numquam maxime consectetur enim a saepe
+          facilis! Iste impedit sapiente eligendi illo odio. Est beatae fugiat
+          natus.
+        </p>
+        <img class="jigen" src="../imagens/lilimika.png" alt="liliellll">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+          porro repellendus dolor consequuntur ut? Debitis saepe nobis, iste
+          molestias quasi quo cupiditate ipsam minima magnam, asperiores
+          voluptatibus ea cum incidunt. Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Cumque mollitia accusantium ipsam consectetur quo,
+          tenetur aspernatur perferendis officiis animi, numquam dolorem beatae,
+          quidem enim molestias non. Nesciunt numquam maxime quas! Lorem ipsum
+          dolor sit amet consectetur, adipisicing elit. Ad doloremque
+          architecto, recusandae autem numquam maxime consectetur enim a saepe
+          facilis! Iste impedit sapiente eligendi illo odio. Est beatae fugiat
+          natus.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+          porro repellendus dolor consequuntur ut? Debitis saepe nobis, iste
+          molestias quasi quo cupiditate ipsam minima magnam, asperiores
+          voluptatibus ea cum incidunt. Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Cumque mollitia accusantium ipsam consectetur quo,
+          tenetur aspernatur perferendis officiis animi, numquam dolorem beatae,
+          quidem enim molestias non. Nesciunt numquam maxime quas! Lorem ipsum
+          dolor sit amet consectetur, adipisicing elit. Ad doloremque
+          architecto, recusandae autem numquam maxime consectetur enim a saepe
+          facilis! Iste impedit sapiente eligendi illo odio. Est beatae fugiat
+          natus.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+          porro repellendus dolor consequuntur ut? Debitis saepe nobis, iste
+          molestias quasi quo cupiditate ipsam minima magnam, asperiores
+          voluptatibus ea cum incidunt. Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Cumque mollitia accusantium ipsam consectetur quo,
+          tenetur aspernatur perferendis officiis animi, numquam dolorem beatae,
+          quidem enim molestias non. Nesciunt numquam maxime quas! Lorem ipsum
+          dolor sit amet consectetur, adipisicing elit. Ad doloremque
+          architecto, recusandae autem numquam maxime consectetur enim a saepe
+          facilis! Iste impedit sapiente eligendi illo odio. Est beatae fugiat
+          natus.
+        </p>
+      </article>
+    </main>
+
+    <script>
+function mudouTamanho(){
+  if (window.innerWidth >= 768) {
+    itens.style.display = 'block'
+  } else {
+    itens.style.display = 'none'
+  }
+}
+
+function clickMenu() {
+    if(liliel.style.display == 'block') {
+        liliel.style.display = 'none'
+    } else {
+        liliel.style.display = 'block'
+    }
+}
+    </script>
+  </body>
+</html>
