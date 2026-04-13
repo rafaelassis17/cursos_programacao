@@ -1,0 +1,43 @@
+body{
+    background-color: rgb(5, 54, 54);
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+
+header{
+color: rgb(255, 255, 255);
+text-align: center;
+}
+
+section{
+background-color: white;
+border-radius: 15px;
+padding: 20px;
+width: 500px;
+margin: auto;
+box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.384);
+}
+img{
+border-radius: 50%;
+height: 250px;
+width: 250px;
+background-size: cover;
+}
+footer{
+color: rgb(255, 255, 255);
+text-align: center;
+font-style: italic;
+}
+div{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+/*#012359
+
+#5EC3F7
+
+#F26D23
+
+*/

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos DOM</title>
+</head>
+
+<style>
+    #area {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        background-color: blueviolet;
+        color: white;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="area">
+        interaja...
+
+    </div>
+
+    <script>
+        let liliel = document.getElementById('area')
+        liliel.addEventListener('click', clicar)
+        liliel.addEventListener('mouseenter', entrar)
+        liliel.addEventListener('mouseout', sair)
+        function clicar() {
+            liliel.innerText = 'Clicou!'
+            liliel.style.backgroundColor = 'red'
+        }
+        function entrar() {
+            liliel.innerText = 'Entrou!'
+        }
+        function sair() {
+            liliel.innerText = 'Soviado!'
+            liliel.style.backgroundColor = 'blue'
+        }
+    </script>
+</body>
+
+</html>
